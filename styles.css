@@ -1,0 +1,180 @@
+/* ===== استایل‌های اصلی بیل بیلک - پالت نارنجی ===== */
+
+/* ذره‌بین */
+#bilbilak-lens {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2147483646;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+#bilbilak-lens::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid #ff6b35;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 2;
+}
+
+#bilbilak-lens::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 25%;
+  height: 25%;
+  background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+#bilbilak-lens-content {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+}
+
+/* حلقه دور ماوس */
+#bilbilak-cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 107, 53, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2147483645;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-out;
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.4);
+}
+
+#bilbilak-cursor-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 50%;
+}
+
+/* Mini-map */
+#bilbilak-minimap {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #ff6b35;
+  border-radius: 8px;
+  z-index: 2147483644;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+#bilbilak-minimap-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#bilbilak-minimap-viewport {
+  position: absolute;
+  border: 2px solid #ff6b35;
+  background: rgba(255, 107, 53, 0.15);
+  pointer-events: none;
+  transition: all 0.15s ease-out;
+}
+
+#bilbilak-minimap-label {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 10px;
+  color: #666;
+  font-family: Tahoma, sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* حالت Focus - blur کردن اطراف */
+#bilbilak-focus-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483643;
+  background: radial-gradient(
+    circle at var(--focus-x, 50%) var(--focus-y, 50%),
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.4) 35%
+  );
+  backdrop-filter: blur(var(--blur-amount, 5px));
+  -webkit-mask-image: radial-gradient(
+    circle at var(--focus-x, 50%) var(--focus-y, 50%),
+    transparent 15%,
+    black 35%
+  );
+  mask-image: radial-gradient(
+    circle at var(--focus-x, 50%) var(--focus-y, 50%),
+    transparent 15%,
+    black 35%
+  );
+  transition: opacity 0.2s;
+}
+
+/* حالت زوم صفحه */
+body.bilbilak-zoomed {
+  transition: transform 0.15s ease-out;
+}
+
+/* پیام خوش‌آمد */
+#bilbilak-welcome {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  z-index: 2147483647;
+  font-family: Tahoma, sans-serif;
+  font-size: 13px;
+  max-width: 300px;
+  border-right: 4px solid #ff6b35;
+  animation: bilbilak-welcome-in 0.4s ease-out;
+}
+
+@keyframes bilbilak-welcome-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#bilbilak-welcome .title {
+  font-weight: 700;
+  color: #ff6b35;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#bilbilak-welcome .shortcut {
+  background: #fff3e0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #e65100;
+}

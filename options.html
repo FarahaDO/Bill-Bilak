@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>بیل بیلک - لیست سیاه</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Tahoma, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
+      padding: 30px;
+      color: #333;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .logo {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #ff6b35;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .add-form {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #ff6b35;
+    }
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+    }
+    button.danger {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+    .site-list {
+      list-style: none;
+    }
+    .site-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+    .site-item:hover {
+      background: #fff3e0;
+    }
+    .site-name {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .site-icon {
+      width: 28px;
+      height: 28px;
+      background: #ff6b35;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+    }
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .hint {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+      padding: 12px;
+      background: #fff8e1;
+      border-radius: 8px;
+      border-right: 3px solid #ffa726;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🦦</div>
+      <div>
+        <h1>لیست سیاه سایت‌ها</h1>
+        <div class="subtitle">افزونه در این سایت‌ها غیرفعال می‌شود</div>
+      </div>
+    </div>
+
+    <div class="add-form">
+      <input type="text" id="newSite" placeholder="example.com" dir="ltr">
+      <button id="addBtn">➕ افزودن</button>
+    </div>
+
+    <div class="hint">
+      💡 <strong>نکته:</strong> آدرس دامنه را وارد کن (مثلاً youtube.com). افزونه به صورت خودکار در تمام زیردامنه‌های این سایت غیرفعال می‌شود.
+    </div>
+
+    <ul class="site-list" id="siteList"></ul>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

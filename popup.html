@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      padding: 18px;
+      font-family: Tahoma, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
+      color: #333;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+    .title-block h1 {
+      font-size: 17px;
+      color: #ff6b35;
+      margin-bottom: 2px;
+    }
+    .title-block .version {
+      font-size: 11px;
+      color: #888;
+    }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+      background: white;
+      padding: 4px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .tab {
+      flex: 1;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #666;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .setting {
+      margin-bottom: 12px;
+      background: white;
+      padding: 12px 14px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px;
+      color: #444;
+    }
+    .mode-selector {
+      display: flex;
+      gap: 6px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .mode-btn.active {
+      border-color: #ff6b35;
+      background: #fff3e0;
+      color: #ff6b35;
+      font-weight: 600;
+    }
+    .mode-btn .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+    input[type="range"] {
+      width: 100%;
+      accent-color: #ff6b35;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    input[type="color"] {
+      width: 50px;
+      height: 32px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .shortcut-box {
+      padding: 12px;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      background: #f9f9f9;
+      font-size: 13px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      transition: all 0.2s;
+    }
+    .shortcut-box:hover { border-color: #ff6b35; }
+    .shortcut-box.recording {
+      border-color: #ff6b35;
+      background: #fff3e0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(255, 107, 53, 0); }
+    }
+    .key-badge {
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      color: white;
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .checkbox-row label { margin: 0; }
+    .switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: #ccc;
+      border-radius: 24px;
+      transition: 0.2s;
+    }
+    .slider:before {
+      content: "";
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    input:checked + .slider { background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%); }
+    input:checked + .slider:before { transform: translateX(20px); }
+    .hint {
+      font-size: 11px;
+      color: #888;
+      margin-top: 6px;
+    }
+    .zoom-value {
+      color: #ff6b35;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4); }
+    .btn.secondary {
+      background: white;
+      color: #ff6b35;
+      border: 1px solid #ff6b35;
+    }
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .footer a { color: #ff6b35; text-decoration: none; }
+    .section-title {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 14px 0 8px 0;
+      font-weight: 600;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🦦</div>
+    <div class="title-block">
+      <h1>بیل بیلک</h1>
+      <div class="version">نسخه ۲.۰ — ذره‌بین هوشمند</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="general">⚙️ عمومی</div>
+    <div class="tab" data-tab="lens">🔍 ذره‌بین</div>
+    <div class="tab" data-tab="advanced">🚀 پیشرفته</div>
+  </div>
+
+  <!-- تب عمومی -->
+  <div class="tab-content active" id="tab-general">
+    <div class="setting checkbox-row">
+      <label>فعال‌سازی افزونه</label>
+      <label class="switch">
+        <input type="checkbox" id="enabled" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="section-title">حالت زوم</div>
+    <div class="setting">
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="page">
+          <span class="icon">🔎</span>
+          زوم صفحه
+        </button>
+        <button class="mode-btn" data-mode="lens">
+          <span class="icon">🔍</span>
+          ذره‌بین
+        </button>
+      </div>
+    </div>
+
+    <div class="setting">
+      <label>میزان بزرگ‌نمایی: <span class="zoom-value" id="zoomValue">2.0x</span></label>
+      <input type="range" id="zoomLevel" min="1.1" max="8" step="0.1" value="2">
+    </div>
+
+    <div class="setting">
+      <label>کلیدهای میانبر</label>
+      <div class="shortcut-box" id="shortcutBox">
+        <span id="shortcutDisplay">برای ضبط کلیک کنید</span>
+      </div>
+      <div class="hint">💡 روی کادر کلیک کن و کلیدها رو فشار بده. Enter برای ذخیره.</div>
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>انیمیشن نرم</label>
+      <label class="switch">
+        <input type="checkbox" id="smoothTransition" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- تب ذره‌بین -->
+  <div class="tab-content" id="tab-lens">
+    <div class="setting">
+      <label>شعاع ذره‌بین: <span class="zoom-value" id="lensRadiusValue">150px</span></label>
+      <input type="range" id="lensRadius" min="80" max="300" step="10" value="150">
+    </div>
+
+    <div class="grid-2">
+      <div class="setting">
+        <label>ضخامت حاشیه</label>
+        <input type="number" id="lensBorder" min="0" max="10" value="3">
+      </div>
+      <div class="setting">
+        <label>رنگ حاشیه</label>
+        <input type="color" id="lensBorderColor" value="#ff6b35">
+      </div>
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>سایه ذره‌بین</label>
+      <label class="switch">
+        <input type="checkbox" id="lensShadow" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>حلقه دور ماوس</label>
+      <label class="switch">
+        <input type="checkbox" id="showCursorRing" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>حالت Focus (تار کردن اطراف)</label>
+      <label class="switch">
+        <input type="checkbox" id="focusMode">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <label>میزان تاری: <span class="zoom-value" id="focusBlurValue">5px</span></label>
+      <input type="range" id="focusBlurAmount" min="0" max="20" step="1" value="5">
+    </div>
+  </div>
+
+  <!-- تب پیشرفته -->
+  <div class="tab-content" id="tab-advanced">
+    <div class="setting checkbox-row">
+      <label>زوم با اسکرول ماوس</label>
+      <label class="switch">
+        <input type="checkbox" id="scrollZoom" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <label>گام تغییر زوم: <span class="zoom-value" id="scrollStepValue">0.2</span></label>
+      <input type="range" id="scrollZoomStep" min="0.1" max="1" step="0.1" value="0.2">
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>ناوبری با کیبورد (کلیدهای جهت‌نما)</label>
+      <label class="switch">
+        <input type="checkbox" id="keyboardNavigation" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting checkbox-row">
+      <label>نمایش Mini-map</label>
+      <label class="switch">
+        <input type="checkbox" id="showMinimap">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="grid-2">
+      <div class="setting">
+        <label>موقعیت Mini-map</label>
+        <select id="minimapPosition">
+          <option value="top-left">بالا-چپ</option>
+          <option value="top-right">بالا-راست</option>
+          <option value="bottom-left">پایین-چپ</option>
+          <option value="bottom-right" selected>پایین-راست</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label>اندازه Mini-map</label>
+        <input type="number" id="minimapSize" min="100" max="300" value="180">
+      </div>
+    </div>
+
+    <button class="btn secondary" id="openBlacklist">🚫 مدیریت لیست سیاه سایت‌ها</button>
+    <button class="btn secondary" id="resetBtn">🔄 بازنشانی به پیش‌فرض</button>
+  </div>
+
+  <div class="footer">
+    ساخته شده با ❤️ توسط <a href="https://t.me/SalahiENG" id="bilbilak-link">Farhad-Salahi</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
