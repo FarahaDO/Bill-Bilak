@@ -1,0 +1,72 @@
+{
+  "extensionName": {
+    "message": "بیل بیلک - ذره‌بین هوشمند",
+    "description": "نام افزونه"
+  },
+  "extensionDescription": {
+    "message": "با بیل بیلک، عمیق‌تر در جزئیات حفره کن! ذره‌بین هوشمند ماوس با قابلیت‌های پیشرفته.",
+    "description": "توضیحات افزونه"
+  },
+  "extensionShortName": {
+    "message": "بیل بیلک",
+    "description": "نام کوتاه"
+  },
+
+  "tabGeneral": { "message": "⚙️ عمومی" },
+  "tabLens": { "message": "🔍 ذره‌بین" },
+  "tabAdvanced": { "message": "🚀 پیشرفته" },
+
+  "enableExtension": { "message": "فعال‌سازی افزونه" },
+  "zoomMode": { "message": "حالت زوم" },
+  "pageZoom": { "message": "زوم صفحه" },
+  "lensMode": { "message": "ذره‌بین" },
+  "zoomLevel": { "message": "میزان بزرگ‌نمایی" },
+  "keyboardShortcut": { "message": "کلیدهای میانبر" },
+  "clickToRecord": { "message": "برای ضبط کلیک کنید" },
+  "pressKeysHint": { "message": "💡 روی کادر کلیک کن و کلیدها رو فشار بده. Enter برای ذخیره." },
+  "recording": { "message": "⌨️ کلیدهای جدید را فشار دهید..." },
+  "noKeys": { "message": "کلیدی ثبت نشده" },
+  "smoothAnimation": { "message": "انیمیشن نرم" },
+
+  "lensRadius": { "message": "شعاع ذره‌بین" },
+  "borderThickness": { "message": "ضخامت حاشیه" },
+  "borderColor": { "message": "رنگ حاشیه" },
+  "lensShadow": { "message": "سایه ذره‌بین" },
+  "cursorRing": { "message": "حلقه دور ماوس" },
+  "focusMode": { "message": "حالت Focus (تار کردن اطراف)" },
+  "blurAmount": { "message": "میزان تاری" },
+
+  "scrollZoom": { "message": "زوم با اسکرول ماوس" },
+  "zoomStep": { "message": "گام تغییر زوم" },
+  "keyboardNavigation": { "message": "ناوبری با کیبورد (کلیدهای جهت‌نما)" },
+  "showMinimap": { "message": "نمایش Mini-map" },
+  "minimapPosition": { "message": "موقعیت Mini-map" },
+  "minimapSize": { "message": "اندازه Mini-map" },
+  "positionTopLeft": { "message": "بالا-چپ" },
+  "positionTopRight": { "message": "بالا-راست" },
+  "positionBottomLeft": { "message": "پایین-چپ" },
+  "positionBottomRight": { "message": "پایین-راست" },
+
+  "manageBlacklist": { "message": "🚫 مدیریت لیست سیاه سایت‌ها" },
+  "resetDefaults": { "message": "🔄 بازنشانی به پیش‌فرض" },
+  "resetConfirm": { "message": "آیا مطمئنی می‌خوای همه تنظیمات به حالت پیش‌فرض برگردن؟" },
+
+  "madeWith": { "message": "ساخته شده با ❤️ توسط" },
+  "teamName": { "message": "فرهاد صلاحی " },
+
+  "version": { "message": "نسخه" },
+  "smartMagnifier": { "message": "ذره‌بین هوشمند" },
+
+  "welcomeTitle": { "message": "🦦 به بیل بیلک خوش اومدی!" },
+  "welcomeBody": { "message": "برای زوم، کلیدهای $SHORTCUT$ رو نگه دار.", "placeholders": { "shortcut": { "content": "$1" } } },
+  "welcomeHint": { "message": "برای تنظیمات روی آیکون افزونه کلیک کن" },
+
+  "blacklistTitle": { "message": "لیست سیاه سایت‌ها" },
+  "blacklistSubtitle": { "message": "افزونه در این سایت‌ها غیرفعال می‌شود" },
+  "addSitePlaceholder": { "message": "example.com" },
+  "addButton": { "message": "➕ افزودن" },
+  "blacklistHint": { "message": "💡 آدرس دامنه را وارد کن (مثلاً youtube.com). افزونه به صورت خودکار در تمام زیردامنه‌های این سایت غیرفعال می‌شود." },
+  "emptyList": { "message": "📭 لیست خالی است" },
+  "alreadyExists": { "message": "این سایت قبلاً در لیست وجود دارد!" },
+  "removeButton": { "message": "🗑️ حذف" }
+}

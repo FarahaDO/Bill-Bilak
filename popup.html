@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html>
 <head>
   <meta charset="UTF-8">
   <style>
@@ -7,10 +7,15 @@
     body {
       width: 380px;
       padding: 18px;
-      font-family: Tahoma, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
       color: #333;
     }
+    body[dir="rtl"] {
+      font-family: Tahoma, -apple-system, sans-serif;
+    }
+
+    /* ===== هدر ===== */
     .header {
       display: flex;
       align-items: center;
@@ -18,6 +23,7 @@
       margin-bottom: 18px;
       padding-bottom: 14px;
       border-bottom: 2px solid #e0e0e0;
+      flex-wrap: nowrap;
     }
     .logo {
       width: 42px;
@@ -29,16 +35,52 @@
       justify-content: center;
       font-size: 24px;
       box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+      flex-shrink: 0;
+    }
+    .title-block {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
     }
     .title-block h1 {
       font-size: 17px;
       color: #ff6b35;
       margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .title-block .version {
       font-size: 11px;
       color: #888;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    .lang-select {
+      padding: 6px 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      width: auto;
+      min-width: 100px;
+      max-width: 140px;
+    }
+    .lang-select:hover {
+      border-color: #ff6b35;
+    }
+    .lang-select:focus {
+      border-color: #ff6b35;
+      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+    }
+
+    /* ===== تب‌ها ===== */
     .tabs {
       display: flex;
       gap: 4px;
@@ -66,6 +108,8 @@
     }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    /* ===== تنظیمات ===== */
     .setting {
       margin-bottom: 12px;
       background: white;
@@ -80,10 +124,7 @@
       font-size: 13px;
       color: #444;
     }
-    .mode-selector {
-      display: flex;
-      gap: 6px;
-    }
+    .mode-selector { display: flex; gap: 6px; }
     .mode-btn {
       flex: 1;
       padding: 10px;
@@ -103,10 +144,7 @@
       font-weight: 600;
     }
     .mode-btn .icon { font-size: 20px; display: block; margin-bottom: 4px; }
-    input[type="range"] {
-      width: 100%;
-      accent-color: #ff6b35;
-    }
+    input[type="range"] { width: 100%; accent-color: #ff6b35; }
     input[type="number"], select {
       width: 100%;
       padding: 7px 10px;
@@ -191,16 +229,8 @@
     }
     input:checked + .slider { background: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%); }
     input:checked + .slider:before { transform: translateX(20px); }
-    .hint {
-      font-size: 11px;
-      color: #888;
-      margin-top: 6px;
-    }
-    .zoom-value {
-      color: #ff6b35;
-      font-weight: 700;
-      font-size: 14px;
-    }
+    .hint { font-size: 11px; color: #888; margin-top: 6px; }
+    .zoom-value { color: #ff6b35; font-weight: 700; font-size: 14px; }
     .btn {
       width: 100%;
       padding: 10px;
@@ -249,56 +279,63 @@
   <div class="header">
     <div class="logo">🦦</div>
     <div class="title-block">
-      <h1>بیل بیلک</h1>
-      <div class="version">نسخه ۲.۰ — ذره‌بین هوشمند</div>
+      <h1 data-i18n="extensionName">BilBilak</h1>
+      <div class="version">
+        <span data-i18n="version">Version</span> 2.0 — <span data-i18n="smartMagnifier">Smart Magnifier</span>
+      </div>
     </div>
+    <select class="lang-select" id="languageSelector" title="Language">
+      <option value="auto" data-i18n="languageAuto">🔄 Auto</option>
+      <option value="en" data-i18n="languageEn">🇬 English</option>
+      <option value="fa" data-i18n="languageFa">🇷 فارسی</option>
+    </select>
   </div>
 
   <div class="tabs">
-    <div class="tab active" data-tab="general">⚙️ عمومی</div>
-    <div class="tab" data-tab="lens">🔍 ذره‌بین</div>
-    <div class="tab" data-tab="advanced">🚀 پیشرفته</div>
+    <div class="tab active" data-tab="general" data-i18n="tabGeneral">⚙️ General</div>
+    <div class="tab" data-tab="lens" data-i18n="tabLens"> Lens</div>
+    <div class="tab" data-tab="advanced" data-i18n="tabAdvanced">🚀 Advanced</div>
   </div>
 
-  <!-- تب عمومی -->
+  <!-- General Tab -->
   <div class="tab-content active" id="tab-general">
     <div class="setting checkbox-row">
-      <label>فعال‌سازی افزونه</label>
+      <label data-i18n="enableExtension">Enable Extension</label>
       <label class="switch">
         <input type="checkbox" id="enabled" checked>
         <span class="slider"></span>
       </label>
     </div>
 
-    <div class="section-title">حالت زوم</div>
+    <div class="section-title" data-i18n="zoomMode">Zoom Mode</div>
     <div class="setting">
       <div class="mode-selector">
         <button class="mode-btn active" data-mode="page">
           <span class="icon">🔎</span>
-          زوم صفحه
+          <span data-i18n="pageZoom">Page Zoom</span>
         </button>
         <button class="mode-btn" data-mode="lens">
           <span class="icon">🔍</span>
-          ذره‌بین
+          <span data-i18n="lensMode">Lens Mode</span>
         </button>
       </div>
     </div>
 
     <div class="setting">
-      <label>میزان بزرگ‌نمایی: <span class="zoom-value" id="zoomValue">2.0x</span></label>
+      <label><span data-i18n="zoomLevel">Zoom Level</span>: <span class="zoom-value" id="zoomValue">2.0x</span></label>
       <input type="range" id="zoomLevel" min="1.1" max="8" step="0.1" value="2">
     </div>
 
     <div class="setting">
-      <label>کلیدهای میانبر</label>
+      <label data-i18n="keyboardShortcut">Keyboard Shortcut</label>
       <div class="shortcut-box" id="shortcutBox">
-        <span id="shortcutDisplay">برای ضبط کلیک کنید</span>
+        <span id="shortcutDisplay" data-i18n="clickToRecord">Click to record</span>
       </div>
-      <div class="hint">💡 روی کادر کلیک کن و کلیدها رو فشار بده. Enter برای ذخیره.</div>
+      <div class="hint" data-i18n="pressKeysHint">💡 Click the box and press your keys. Press Enter to save.</div>
     </div>
 
     <div class="setting checkbox-row">
-      <label>انیمیشن نرم</label>
+      <label data-i18n="smoothAnimation">Smooth Animation</label>
       <label class="switch">
         <input type="checkbox" id="smoothTransition" checked>
         <span class="slider"></span>
@@ -306,26 +343,26 @@
     </div>
   </div>
 
-  <!-- تب ذره‌بین -->
+  <!-- Lens Tab -->
   <div class="tab-content" id="tab-lens">
     <div class="setting">
-      <label>شعاع ذره‌بین: <span class="zoom-value" id="lensRadiusValue">150px</span></label>
+      <label><span data-i18n="lensRadius">Lens Radius</span>: <span class="zoom-value" id="lensRadiusValue">150px</span></label>
       <input type="range" id="lensRadius" min="80" max="300" step="10" value="150">
     </div>
 
     <div class="grid-2">
       <div class="setting">
-        <label>ضخامت حاشیه</label>
+        <label data-i18n="borderThickness">Border Thickness</label>
         <input type="number" id="lensBorder" min="0" max="10" value="3">
       </div>
       <div class="setting">
-        <label>رنگ حاشیه</label>
+        <label data-i18n="borderColor">Border Color</label>
         <input type="color" id="lensBorderColor" value="#ff6b35">
       </div>
     </div>
 
     <div class="setting checkbox-row">
-      <label>سایه ذره‌بین</label>
+      <label data-i18n="lensShadow">Lens Shadow</label>
       <label class="switch">
         <input type="checkbox" id="lensShadow" checked>
         <span class="slider"></span>
@@ -333,7 +370,7 @@
     </div>
 
     <div class="setting checkbox-row">
-      <label>حلقه دور ماوس</label>
+      <label data-i18n="cursorRing">Cursor Ring</label>
       <label class="switch">
         <input type="checkbox" id="showCursorRing" checked>
         <span class="slider"></span>
@@ -341,7 +378,7 @@
     </div>
 
     <div class="setting checkbox-row">
-      <label>حالت Focus (تار کردن اطراف)</label>
+      <label data-i18n="focusMode">Focus Mode (blur surroundings)</label>
       <label class="switch">
         <input type="checkbox" id="focusMode">
         <span class="slider"></span>
@@ -349,15 +386,15 @@
     </div>
 
     <div class="setting">
-      <label>میزان تاری: <span class="zoom-value" id="focusBlurValue">5px</span></label>
+      <label><span data-i18n="blurAmount">Blur Amount</span>: <span class="zoom-value" id="focusBlurValue">5px</span></label>
       <input type="range" id="focusBlurAmount" min="0" max="20" step="1" value="5">
     </div>
   </div>
 
-  <!-- تب پیشرفته -->
+  <!-- Advanced Tab -->
   <div class="tab-content" id="tab-advanced">
     <div class="setting checkbox-row">
-      <label>زوم با اسکرول ماوس</label>
+      <label data-i18n="scrollZoom">Zoom with Mouse Scroll</label>
       <label class="switch">
         <input type="checkbox" id="scrollZoom" checked>
         <span class="slider"></span>
@@ -365,12 +402,12 @@
     </div>
 
     <div class="setting">
-      <label>گام تغییر زوم: <span class="zoom-value" id="scrollStepValue">0.2</span></label>
+      <label><span data-i18n="zoomStep">Zoom Step</span>: <span class="zoom-value" id="scrollStepValue">0.2</span></label>
       <input type="range" id="scrollZoomStep" min="0.1" max="1" step="0.1" value="0.2">
     </div>
 
     <div class="setting checkbox-row">
-      <label>ناوبری با کیبورد (کلیدهای جهت‌نما)</label>
+      <label data-i18n="keyboardNavigation">Keyboard Navigation (Arrow Keys)</label>
       <label class="switch">
         <input type="checkbox" id="keyboardNavigation" checked>
         <span class="slider"></span>
@@ -378,7 +415,7 @@
     </div>
 
     <div class="setting checkbox-row">
-      <label>نمایش Mini-map</label>
+      <label data-i18n="showMinimap">Show Mini-map</label>
       <label class="switch">
         <input type="checkbox" id="showMinimap">
         <span class="slider"></span>
@@ -387,28 +424,29 @@
 
     <div class="grid-2">
       <div class="setting">
-        <label>موقعیت Mini-map</label>
+        <label data-i18n="minimapPosition">Mini-map Position</label>
         <select id="minimapPosition">
-          <option value="top-left">بالا-چپ</option>
-          <option value="top-right">بالا-راست</option>
-          <option value="bottom-left">پایین-چپ</option>
-          <option value="bottom-right" selected>پایین-راست</option>
+          <option value="top-left" data-i18n="positionTopLeft">Top-Left</option>
+          <option value="top-right" data-i18n="positionTopRight">Top-Right</option>
+          <option value="bottom-left" data-i18n="positionBottomLeft">Bottom-Left</option>
+          <option value="bottom-right" selected data-i18n="positionBottomRight">Bottom-Right</option>
         </select>
       </div>
       <div class="setting">
-        <label>اندازه Mini-map</label>
+        <label data-i18n="minimapSize">Mini-map Size</label>
         <input type="number" id="minimapSize" min="100" max="300" value="180">
       </div>
     </div>
 
-    <button class="btn secondary" id="openBlacklist">🚫 مدیریت لیست سیاه سایت‌ها</button>
-    <button class="btn secondary" id="resetBtn">🔄 بازنشانی به پیش‌فرض</button>
+    <button class="btn secondary" id="openBlacklist" data-i18n="manageBlacklist">🚫 Manage Site Blacklist</button>
+    <button class="btn secondary" id="resetBtn" data-i18n="resetDefaults">🔄 Reset to Defaults</button>
   </div>
 
   <div class="footer">
-    ساخته شده با ❤️ توسط <a href="https://t.me/SalahiENG" id="bilbilak-link">Farhad-Salahi</a>
+    <span data-i18n="madeWith">Made with ❤️ by</span> <a href="#" id="bilbilak-link" data-i18n="teamName">BilBilak Team</a>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

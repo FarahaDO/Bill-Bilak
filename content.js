@@ -309,30 +309,47 @@
     return map[key] || key;
   }
 
-  // ===== پیام خوش‌آمد =====
-  chrome.storage.local.get(['welcomed'], (data) => {
-    if (!data.welcomed && settings.enabled) {
-      showWelcome();
-      chrome.storage.local.set({ welcomed: true });
-    }
-  });
-
-  function showWelcome() {
-    const welcome = document.createElement('div');
-    welcome.id = 'bilbilak-welcome';
-    const shortcut = settings.shortcutKeys.map(k => k === 'Control' ? 'Ctrl' : k).join(' + ');
-    welcome.innerHTML = `
-      <div class="title">🦦 به بیل بیلک خوش اومدی!</div>
-      <div>برای زوم، کلیدهای <span class="shortcut">${shortcut}</span> رو نگه دار.</div>
-      <div style="margin-top:4px;opacity:0.7;font-size:11px">برای تنظیمات روی آیکون افزونه کلیک کن</div>
-    `;
-    document.body.appendChild(welcome);
-    setTimeout(() => {
-      welcome.style.transition = 'opacity 0.3s';
-      welcome.style.opacity = '0';
-      setTimeout(() => welcome.remove(), 300);
-    }, 5000);
+// ===== پیام خوش‌آمد =====
+chrome.storage.local.get(['welcomed'], (data) => {
+  if (!data.welcomed && settings.enabled) {
+    showWelcome();
+    chrome.storage.local.set({ welcomed: true });
   }
+});
+
+async function showWelcome() {
+  await BilBilakI18n.init();
+  
+  const welcome = document.createElement('div');
+  welcome.id = 'bilbilak-welcome';
+  
+  const isRTL = BilBilakI18n.isRTL();
+  welcome.dir = isRTL ? 'rtl' : 'ltr';
+  
+  if (isRTL) {
+    welcome.style.borderRight = '4px solid #ff6b35';
+    welcome.style.borderLeft = 'none';
+    welcome.style.fontFamily = 'Tahoma, sans-serif';
+  } else {
+    welcome.style.borderLeft = '4px solid #ff6b35';
+    welcome.style.borderRight = 'none';
+    welcome.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  }
+  
+  const shortcut = settings.shortcutKeys.map(k => k === 'Control' ? 'Ctrl' : k).join(' + ');
+  
+  welcome.innerHTML = `
+    <div class="title">${BilBilakI18n.t('welcomeTitle')}</div>
+    <div>${BilBilakI18n.t('welcomeBody', { shortcut })}</div>
+    <div style="margin-top:4px;opacity:0.7;font-size:11px">${BilBilakI18n.t('welcomeHint')}</div>
+  `;
+  document.body.appendChild(welcome);
+  setTimeout(() => {
+    welcome.style.transition = 'opacity 0.3s';
+    welcome.style.opacity = '0';
+    setTimeout(() => welcome.remove(), 300);
+  }, 5000);
+}
 
   console.log('🦦 بیل بیلک بارگذاری شد');
 })();

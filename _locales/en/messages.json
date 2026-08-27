@@ -1,0 +1,72 @@
+{
+  "extensionName": {
+    "message": "BilBilak - Smart Mouse Zoom",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Dig deeper into details with BilBilak! Smart mouse magnifier with advanced features.",
+    "description": "The description of the extension"
+  },
+  "extensionShortName": {
+    "message": "BilBilak",
+    "description": "Short name"
+  },
+
+  "tabGeneral": { "message": "⚙️ General" },
+  "tabLens": { "message": "🔍 Lens" },
+  "tabAdvanced": { "message": "🚀 Advanced" },
+
+  "enableExtension": { "message": "Enable Extension" },
+  "zoomMode": { "message": "Zoom Mode" },
+  "pageZoom": { "message": "Page Zoom" },
+  "lensMode": { "message": "Lens Mode" },
+  "zoomLevel": { "message": "Zoom Level" },
+  "keyboardShortcut": { "message": "Keyboard Shortcut" },
+  "clickToRecord": { "message": "Click to record" },
+  "pressKeysHint": { "message": "💡 Click the box and press your keys. Press Enter to save." },
+  "recording": { "message": "⌨️ Press new keys..." },
+  "noKeys": { "message": "No keys recorded" },
+  "smoothAnimation": { "message": "Smooth Animation" },
+
+  "lensRadius": { "message": "Lens Radius" },
+  "borderThickness": { "message": "Border Thickness" },
+  "borderColor": { "message": "Border Color" },
+  "lensShadow": { "message": "Lens Shadow" },
+  "cursorRing": { "message": "Cursor Ring" },
+  "focusMode": { "message": "Focus Mode (blur surroundings)" },
+  "blurAmount": { "message": "Blur Amount" },
+
+  "scrollZoom": { "message": "Zoom with Mouse Scroll" },
+  "zoomStep": { "message": "Zoom Step" },
+  "keyboardNavigation": { "message": "Keyboard Navigation (Arrow Keys)" },
+  "showMinimap": { "message": "Show Mini-map" },
+  "minimapPosition": { "message": "Mini-map Position" },
+  "minimapSize": { "message": "Mini-map Size" },
+  "positionTopLeft": { "message": "Top-Left" },
+  "positionTopRight": { "message": "Top-Right" },
+  "positionBottomLeft": { "message": "Bottom-Left" },
+  "positionBottomRight": { "message": "Bottom-Right" },
+
+  "manageBlacklist": { "message": "🚫 Manage Site Blacklist" },
+  "resetDefaults": { "message": "🔄 Reset to Defaults" },
+  "resetConfirm": { "message": "Are you sure you want to reset all settings to default?" },
+
+  "madeWith": { "message": "Made with ❤️ by" },
+  "teamName": { "message": "farahad-Salahi(Salahi@dr.com)" },
+
+  "version": { "message": "Version" },
+  "smartMagnifier": { "message": "Smart Magnifier" },
+
+  "welcomeTitle": { "message": "🦦 Welcome to BilBilak!" },
+  "welcomeBody": { "message": "Hold $SHORTCUT$ to zoom.", "placeholders": { "shortcut": { "content": "$1" } } },
+  "welcomeHint": { "message": "Click the extension icon for settings" },
+
+  "blacklistTitle": { "message": "Site Blacklist" },
+  "blacklistSubtitle": { "message": "The extension will be disabled on these sites" },
+  "addSitePlaceholder": { "message": "example.com" },
+  "addButton": { "message": "➕ Add" },
+  "blacklistHint": { "message": "💡 Enter the domain (e.g. youtube.com). The extension will automatically disable on all subdomains." },
+  "emptyList": { "message": "📭 List is empty" },
+  "alreadyExists": { "message": "This site already exists in the list!" },
+  "removeButton": { "message": "🗑️ Remove" }
+}

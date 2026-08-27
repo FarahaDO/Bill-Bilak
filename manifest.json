@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "بیل بیلک - ذره‌بین هوشمند",
-  "short_name": "BilBilak",
+  "name": "__MSG_extensionName__",
+  "short_name": "__MSG_extensionShortName__",
   "version": "2.0.0",
-  "description": "ابزاری کاربردی برای زوم کردن صفحات وب",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "permissions": ["storage", "activeTab"],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "بیل بیلک - تنظیمات"
+    "default_title": "__MSG_extensionName__"
   },
   "options_page": "options.html",
   "background": {
@@ -16,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js", "magnifier.js", "minimap.js"],
+      "js": ["i18n.js", "content.js", "magnifier.js", "minimap.js"],
       "css": ["styles.css"],
       "run_at": "document_idle",
       "all_frames": true
@@ -32,7 +33,7 @@
       "suggested_key": {
         "default": "Ctrl+Shift+Z"
       },
-      "description": "فعال/غیرفعال کردن زوم"
+      "description": "Toggle zoom"
     }
   }
 }

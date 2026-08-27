@@ -1,3 +1,4 @@
+// ===== Defaults =====
 const defaults = {
   zoomMode: 'page',
   zoomLevel: 2,
@@ -24,7 +25,29 @@ const defaults = {
   blacklist: []
 };
 
-// ===== مدیریت تب‌ها =====
+// ===== Initialize i18n =====
+async function initApp() {
+  await BilBilakI18n.init();
+  BilBilakI18n.translatePage();
+  
+  // تنظیم dropdown زبان
+  const langSelector = document.getElementById('languageSelector');
+  chrome.storage.sync.get(['uiLanguage'], (data) => {
+    langSelector.value = data.uiLanguage || 'auto';
+  });
+  
+  // گوش دادن به تغییر زبان
+  langSelector.addEventListener('change', async (e) => {
+    await BilBilakI18n.setLanguage(e.target.value);
+    BilBilakI18n.translatePage();
+    // بارگذاری مجدد تنظیمات برای ترجمه مقادیر داینامیک
+    loadSettings();
+  });
+  
+  loadSettings();
+}
+
+// ===== Tab management =====
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -34,7 +57,7 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
-// ===== مدیریت حالت زوم =====
+// ===== Zoom mode =====
 document.querySelectorAll('.mode-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
@@ -43,7 +66,7 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
   });
 });
 
-// ===== المان‌ها =====
+// ===== Elements =====
 const zoomLevel = document.getElementById('zoomLevel');
 const zoomValue = document.getElementById('zoomValue');
 const shortcutBox = document.getElementById('shortcutBox');
@@ -72,20 +95,7 @@ const openBlacklist = document.getElementById('openBlacklist');
 let isRecording = false;
 let recordedKeys = [];
 
-function renderShortcut(keys) {
-  shortcutDisplay.innerHTML = '';
-  if (!keys || keys.length === 0) {
-    shortcutDisplay.textContent = 'کلیدی ثبت نشده';
-    return;
-  }
-  keys.forEach(key => {
-    const badge = document.createElement('span');
-    badge.className = 'key-badge';
-    badge.textContent = formatKeyName(key);
-    shortcutDisplay.appendChild(badge);
-  });
-}
-
+// ===== ترجمه کوتاه‌نام کلیدها =====
 function formatKeyName(key) {
   const map = {
     'Control': 'Ctrl',
@@ -102,39 +112,55 @@ function formatKeyName(key) {
   return map[key] || key.toUpperCase();
 }
 
-// ===== بارگذاری تنظیمات =====
-chrome.storage.sync.get(null, (settings) => {
-  const s = { ...defaults, ...settings };
-  
-  zoomLevel.value = s.zoomLevel;
-  zoomValue.textContent = s.zoomLevel.toFixed(1) + 'x';
-  enabled.checked = s.enabled;
-  smoothTransition.checked = s.smoothTransition;
-  
-  lensRadius.value = s.lensRadius;
-  lensRadiusValue.textContent = s.lensRadius + 'px';
-  lensBorder.value = s.lensBorder;
-  lensBorderColor.value = s.lensBorderColor;
-  lensShadow.checked = s.lensShadow;
-  showCursorRing.checked = s.showCursorRing;
-  focusMode.checked = s.focusMode;
-  focusBlurAmount.value = s.focusBlurAmount;
-  focusBlurValue.textContent = s.focusBlurAmount + 'px';
-  
-  scrollZoom.checked = s.scrollZoom;
-  scrollZoomStep.value = s.scrollZoomStep;
-  scrollStepValue.textContent = s.scrollZoomStep;
-  keyboardNavigation.checked = s.keyboardNavigation;
-  showMinimap.checked = s.showMinimap;
-  minimapPosition.value = s.minimapPosition;
-  minimapSize.value = s.minimapSize;
-  
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mode === s.zoomMode);
+function renderShortcut(keys) {
+  shortcutDisplay.innerHTML = '';
+  if (!keys || keys.length === 0) {
+    shortcutDisplay.textContent = BilBilakI18n.t('noKeys');
+    return;
+  }
+  keys.forEach(key => {
+    const badge = document.createElement('span');
+    badge.className = 'key-badge';
+    badge.textContent = formatKeyName(key);
+    shortcutDisplay.appendChild(badge);
   });
-  
-  renderShortcut(s.shortcutKeys);
-});
+}
+
+// ===== بارگذاری تنظیمات =====
+function loadSettings() {
+  chrome.storage.sync.get(null, (settings) => {
+    const s = { ...defaults, ...settings };
+    
+    zoomLevel.value = s.zoomLevel;
+    zoomValue.textContent = s.zoomLevel.toFixed(1) + 'x';
+    enabled.checked = s.enabled;
+    smoothTransition.checked = s.smoothTransition;
+    
+    lensRadius.value = s.lensRadius;
+    lensRadiusValue.textContent = s.lensRadius + 'px';
+    lensBorder.value = s.lensBorder;
+    lensBorderColor.value = s.lensBorderColor;
+    lensShadow.checked = s.lensShadow;
+    showCursorRing.checked = s.showCursorRing;
+    focusMode.checked = s.focusMode;
+    focusBlurAmount.value = s.focusBlurAmount;
+    focusBlurValue.textContent = s.focusBlurAmount + 'px';
+    
+    scrollZoom.checked = s.scrollZoom;
+    scrollZoomStep.value = s.scrollZoomStep;
+    scrollStepValue.textContent = s.scrollZoomStep;
+    keyboardNavigation.checked = s.keyboardNavigation;
+    showMinimap.checked = s.showMinimap;
+    minimapPosition.value = s.minimapPosition;
+    minimapSize.value = s.minimapSize;
+    
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === s.zoomMode);
+    });
+    
+    renderShortcut(s.shortcutKeys);
+  });
+}
 
 // ===== ذخیره تنظیمات =====
 function bindRange(input, display, suffix, key, transform = v => v) {
@@ -191,7 +217,7 @@ shortcutBox.addEventListener('click', () => {
   shortcutBox.classList.toggle('recording', isRecording);
   recordedKeys = [];
   if (isRecording) {
-    shortcutDisplay.textContent = '⌨️ کلیدهای جدید را فشار دهید...';
+    shortcutDisplay.textContent = BilBilakI18n.t('recording');
     document.addEventListener('keydown', recordKey);
   } else {
     document.removeEventListener('keydown', recordKey);
@@ -234,14 +260,17 @@ function saveShortcut() {
 
 // ===== بازنشانی =====
 resetBtn.addEventListener('click', () => {
-  if (confirm('آیا مطمئنی می‌خوای همه تنظیمات به حالت پیش‌فرض برگردن؟')) {
+  if (confirm(BilBilakI18n.t('resetConfirm'))) {
     chrome.storage.sync.set(defaults, () => {
       location.reload();
     });
   }
 });
 
-// ===== باز کردن لیست سیاه =====
+// ===== لیست سیاه =====
 openBlacklist.addEventListener('click', () => {
   chrome.runtime.openOptionsPage();
 });
+
+// ===== شروع =====
+initApp();

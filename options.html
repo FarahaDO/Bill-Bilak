@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>بیل بیلک - لیست سیاه</title>
+  <title data-i18n="blacklistTitle">Site Blacklist</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Tahoma, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
       padding: 30px;
       color: #333;
       min-height: 100vh;
+    }
+    body[dir="rtl"] {
+      font-family: Tahoma, -apple-system, sans-serif;
     }
     .container {
       max-width: 700px;
@@ -37,7 +40,9 @@
       align-items: center;
       justify-content: center;
       font-size: 32px;
+      flex-shrink: 0;
     }
+    .header-text { flex: 1; }
     h1 {
       font-size: 22px;
       color: #ff6b35;
@@ -46,6 +51,23 @@
       color: #888;
       font-size: 13px;
       margin-top: 4px;
+    }
+    .lang-select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .lang-select:hover { border-color: #ff6b35; }
+    .lang-select:focus {
+      border-color: #ff6b35;
+      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
     }
     .add-form {
       display: flex;
@@ -86,9 +108,7 @@
       padding: 6px 12px;
       font-size: 12px;
     }
-    .site-list {
-      list-style: none;
-    }
+    .site-list { list-style: none; }
     .site-item {
       display: flex;
       align-items: center;
@@ -99,9 +119,7 @@
       margin-bottom: 8px;
       transition: all 0.2s;
     }
-    .site-item:hover {
-      background: #fff3e0;
-    }
+    .site-item:hover { background: #fff3e0; }
     .site-name {
       font-size: 14px;
       display: flex;
@@ -134,30 +152,38 @@
       border-radius: 8px;
       border-right: 3px solid #ffa726;
     }
+    body[dir="rtl"] .hint {
+      border-right: none;
+      border-left: 3px solid #ffa726;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div class="logo">🦦</div>
-      <div>
-        <h1>لیست سیاه سایت‌ها</h1>
-        <div class="subtitle">افزونه در این سایت‌ها غیرفعال می‌شود</div>
+      <div class="header-text">
+        <h1 data-i18n="blacklistTitle">Site Blacklist</h1>
+        <div class="subtitle" data-i18n="blacklistSubtitle">The extension will be disabled on these sites</div>
       </div>
+      <select class="lang-select" id="languageSelector">
+        <option value="auto" data-i18n="languageAuto">🔄 Auto</option>
+        <option value="en" data-i18n="languageEn">🇬🇧 English</option>
+        <option value="fa" data-i18n="languageFa">🇮🇷 فارسی</option>
+      </select>
     </div>
 
     <div class="add-form">
-      <input type="text" id="newSite" placeholder="example.com" dir="ltr">
-      <button id="addBtn">➕ افزودن</button>
+      <input type="text" id="newSite" data-i18n-placeholder="addSitePlaceholder" placeholder="example.com" dir="ltr">
+      <button id="addBtn" data-i18n="addButton">➕ Add</button>
     </div>
 
-    <div class="hint">
-      💡 <strong>نکته:</strong> آدرس دامنه را وارد کن (مثلاً youtube.com). افزونه به صورت خودکار در تمام زیردامنه‌های این سایت غیرفعال می‌شود.
-    </div>
+    <div class="hint" data-i18n="blacklistHint">💡 Enter the domain (e.g. youtube.com). The extension will automatically disable on all subdomains.</div>
 
     <ul class="site-list" id="siteList"></ul>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="options.js"></script>
 </body>
 </html>
