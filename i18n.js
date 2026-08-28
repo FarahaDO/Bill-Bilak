@@ -6,7 +6,7 @@ const BilBilakI18n = (() => {
   const translations = {
     en: {
       extensionName: "BilBilak - Smart Mouse Zoom",
-      extensionDescription: "Dig deeper into details with BilBilak! Smart mouse magnifier with advanced features.",
+      extensionDescription: "See deeper into details with BilBilak! Smart mouse magnifier with advanced features.",
       
       tabGeneral: "⚙️ General",
       tabLens: "🔍 Lens",
@@ -48,7 +48,7 @@ const BilBilakI18n = (() => {
       resetConfirm: "Are you sure you want to reset all settings to default?",
       
       madeWith: "Made with ❤️ by",
-      teamName: "BilBilak Team",
+      teamName: "Farhad-Salahi",
       
       version: "Version",
       smartMagnifier: "Smart Magnifier",
@@ -74,7 +74,7 @@ const BilBilakI18n = (() => {
     
     fa: {
       extensionName: "بیل بیلک - ذره‌بین هوشمند",
-      extensionDescription: "با بیل بیلک، عمیق‌تر در جزئیات حفره کن! ذره‌بین هوشمند ماوس با قابلیت‌های پیشرفته.",
+      extensionDescription: "با بیل بیلک، عمیق‌تر نگاه کن! ذره‌بین هوشمند ماوس با قابلیت‌های پیشرفته.",
       
       tabGeneral: "⚙️ عمومی",
       tabLens: "🔍 ذره‌بین",
@@ -116,7 +116,7 @@ const BilBilakI18n = (() => {
       resetConfirm: "آیا مطمئنی می‌خوای همه تنظیمات به حالت پیش‌فرض برگردن؟",
       
       madeWith: "ساخته شده با ❤️ توسط",
-      teamName: "تیم بیل بیلک",
+      teamName: "فرهاد صلاحی (@salahiENG)",
       
       version: "نسخه",
       smartMagnifier: "ذره‌بین هوشمند",
