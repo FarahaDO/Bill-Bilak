@@ -2,7 +2,7 @@
 
 # 🦦 BilBilak - Smart Mouse Zoom
 
-### Dig deeper into details! 🔍
+### See deeper into details! 🔍
 
 **A powerful, multilingual browser extension that lets you zoom into any part of a webpage with a simple keyboard shortcut.**
 
