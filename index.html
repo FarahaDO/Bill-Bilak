@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مستندات جامع بیل بیلک (BilBilak) | ذره‌بین هوشمند مرورگر</title>
+  <meta name="description" content="مستندات کامل افزونه مرورگر بیل بیلک (BilBilak) - ابزار قدرتمند زوم هوشمند، ذره‌بین شناور، مینی‌مپ و شخصی‌سازی پیشرفته برای کروم، اج و بریو">
+  <meta name="author" content="فرهاد صلاحی (Farhad Salahi)">
+
+  <!-- Google Font: Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #ff6b35;
+      --primary-hover: #fa5a1e;
+      --primary-light: rgba(255, 107, 53, 0.12);
+      --primary-gradient: linear-gradient(135deg, #ff6b35 0%, #ffa726 100%);
+      --accent: #ffa726;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --font-main: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Tahoma, sans-serif;
+      --font-code: 'Fira Code', Consolas, Monaco, monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.18);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* حالت تاریک (Dark Mode) - پیش‌فرض */
+    [data-theme="dark"] {
+      --bg-base: #0b0f19;
+      --bg-surface: #111827;
+      --bg-card: #1f2937;
+      --bg-card-hover: #283548;
+      --bg-input: #151d2f;
+      --border-color: #374151;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-subtle: #6b7280;
+      --code-bg: #111827;
+      --code-text: #e2e8f0;
+      --sidebar-bg: #0d1322;
+      --badge-bg: rgba(255, 107, 53, 0.2);
+    }
+
+    /* حالت روشن (Light Mode) */
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-input: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-light: rgba(0, 0, 0, 0.06);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #94a3b8;
+      --code-bg: #1e293b;
+      --code-text: #f8fafc;
+      --sidebar-bg: #ffffff;
+      --badge-bg: #ffe8d6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.85;
+      font-size: 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* هدر ناوبری بالا */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 70px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-version {
+      font-size: 11px;
+      background: var(--badge-bg);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 320px;
+      max-width: 100%;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 8px 36px 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-input);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .nav-search input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+    }
+
+    .nav-search .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      color: #fff !important;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 18px rgba(255, 107, 53, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--primary);
+    }
+
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: var(--transition);
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: rotate(25deg);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    /* لایه اصلی صفحه */
+    .layout-container {
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* سایدبار ناوبری */
+    .sidebar {
+      width: 290px;
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--border-color);
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 70px;
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-color) transparent;
+      transition: var(--transition);
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      margin-bottom: 8px;
+      padding-right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: var(--transition);
+      margin-bottom: 2px;
+    }
+
+    .sidebar-link:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+      padding-right: 16px;
+    }
+
+    .sidebar-link.active {
+      color: #fff;
+      background: var(--primary-gradient);
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(255, 107, 53, 0.25);
+    }
+
+    .sidebar-link .icon {
+      font-size: 16px;
+    }
+
+    /* محتوای اصلی */
+    .main-content {
+      flex: 1;
+      padding: 2.5rem 3.5rem;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    /* بنر هیرو */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(255, 167, 38, 0.05) 100%);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-banner::after {
+      content: '🦦';
+      position: absolute;
+      left: 20px;
+      bottom: -15px;
+      font-size: 140px;
+      opacity: 0.12;
+      pointer-events: none;
+      transform: rotate(10deg);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: var(--badge-bg);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    .hero-title span {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 1.75rem;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* بخش‌های محتوا */
+    .doc-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 90px;
+    }
+
+    .section-header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border-light);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .hash {
+      color: var(--primary);
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    /* کارت‌ها */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .card-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    /* جعبه شبیه‌ساز زنده (Interactive Playground) */
+    .playground-box {
+      background: var(--bg-card);
+      border: 2px dashed var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .playground-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .playground-title {
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .playground-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .interactive-canvas-area {
+      height: 260px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(#ff6b35 1px, transparent 1px), var(--bg-input);
+      background-size: 16px 16px;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .playground-sample-text {
+      text-align: center;
+      max-width: 500px;
+      padding: 20px;
+      transition: transform 0.15s ease-out;
+    }
+
+    .playground-lens {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.4);
+      pointer-events: none;
+      display: none;
+      transform: translate(-50%, -50%);
+      backdrop-filter: brightness(1.1);
+      z-index: 10;
+    }
+
+    .playground-ring {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border: 2px solid rgba(255, 107, 53, 0.9);
+      border-radius: 50%;
+      pointer-events: none;
+      display: none;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+      z-index: 9;
+    }
+
+    /* کلیدهای کیبورد (KBD) */
+    kbd {
+      display: inline-block;
+      padding: 3px 8px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--text-main);
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-bottom: 2px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      margin: 0 2px;
+      direction: ltr;
+    }
+
+    /* بلوک‌های کد */
+    .code-wrapper {
+      position: relative;
+      margin: 1.25rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--code-bg);
+      direction: ltr;
+      text-align: left;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid var(--border-light);
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+
+    .code-lang-tag {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    pre {
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: var(--font-code);
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--code-text);
+      margin: 0;
+    }
+
+    code {
+      font-family: var(--font-code);
+      font-size: 0.9em;
+    }
+
+    p code, li code, td code {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    /* تب‌های تعاملی */
+    .tabs-container {
+      margin: 1.5rem 0;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 6px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 2px;
+    }
+
+    .tab-btn {
+      padding: 8px 18px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: -2px;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .tab-pane {
+      display: none;
+      padding: 1.5rem 0;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* جدول‌ها */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 13.5px;
+    }
+
+    th {
+      background: var(--bg-input);
+      padding: 12px 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    /* هشدارهای متنی (Callouts / Notes) */
+    .callout {
+      border-right: 4px solid var(--primary);
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      border-left: 1px solid var(--border-light);
+    }
+
+    .callout-info {
+      border-right-color: var(--info);
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .callout-warning {
+      border-right-color: var(--warning);
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .callout-success {
+      border-right-color: var(--success);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+    }
+
+    /* دیاگرام معماری */
+    .architecture-diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .diagram-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .diagram-row {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .diagram-node {
+      background: var(--bg-input);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      text-align: center;
+      min-width: 200px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .diagram-node:hover {
+      border-color: var(--primary);
+      transform: scale(1.03);
+    }
+
+    .diagram-node.highlight {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .diagram-node-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .diagram-node-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .diagram-arrow {
+      font-size: 20px;
+      color: var(--text-subtle);
+    }
+
+    /* استپ‌های نصب عددی */
+    .steps-list {
+      list-style: none;
+      counter-reset: step-counter;
+      margin: 1.5rem 0;
+    }
+
+    .step-item {
+      position: relative;
+      padding-right: 52px;
+      margin-bottom: 1.75rem;
+    }
+
+    .step-item::before {
+      content: counter(step-counter);
+      counter-increment: step-counter;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+    }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .step-content {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* بخش پرسش‌های متداول (Accordion) */
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-question {
+      padding: 14px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-arrow {
+      transition: transform 0.25s ease;
+      font-size: 12px;
+    }
+
+    .faq-answer {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.8;
+      border-top: 1px solid transparent;
+    }
+
+    .faq-item.open {
+      border-color: var(--primary);
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 600px;
+      padding: 14px 18px 18px;
+      border-top-color: var(--border-light);
+    }
+
+    /* فوتر */
+    .footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      font-size: 12.5px;
+      color: var(--text-subtle);
+    }
+
+    /* اعلان کپی */
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      background: #10b981;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* دکمه اسکرول به بالا */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 14px rgba(255, 107, 53, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 999;
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* ریسپانسیو و موبایل */
+    @media (max-width: 992px) {
+      .sidebar {
+        position: fixed;
+        right: -300px;
+        top: 70px;
+        z-index: 990;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .sidebar.open {
+        right: 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .main-content {
+        padding: 1.5rem;
+      }
+
+      .navbar {
+        padding: 0 1rem;
+      }
+
+      .nav-search {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 24px;
+      }
+      .hero-banner {
+        padding: 1.5rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-actions .btn-ghost {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ناوبری بالایی -->
+  <header class="navbar">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="منوی موبایل">☰</button>
+      <a href="#overview" class="nav-brand">
+        <div class="brand-logo">🦦</div>
+        <div>
+          <span class="brand-title">بیل بیلک</span>
+          <span class="brand-version">v2.1.0</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- جستجو در مستندات -->
+    <div class="nav-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="docSearch" placeholder="جستجو در بخش‌ها، قابلیت‌ها، کلیدها...">
+    </div>
+
+    <!-- دکمه‌ها و تغییر تم -->
+    <div class="nav-actions">
+      <a href="bill-bilak-docs-en.html" class="btn btn-ghost" title="Switch to English Documentation">
+        <span>🇬🇧 English</span>
+      </a>
+      <button class="theme-toggle-btn" id="themeToggle" title="تغییر تم تاریک / روشن">🌙</button>
+      <a href="https://github.com/FarahaDO/Bill-Bilak" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+        <span>⭐ گیت‌هاب</span>
+      </a>
+      <a href="#quickstart" class="btn btn-primary">
+        <span>🚀 شروع سریع</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- چیدمان اصلی -->
+  <div class="layout-container">
+
+    <!-- سایدبار دسترسی سریع -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>📌</span> شروع و معرفی
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#overview" class="sidebar-link active"><span class="icon">🦦</span> نمای کلی پروژه</a></li>
+          <li><a href="#why-bilbilak" class="sidebar-link"><span class="icon">🎯</span> چرا بیل بیلک؟</a></li>
+          <li><a href="#interactive-demo" class="sidebar-link"><span class="icon">✨</span> شبیه‌ساز زنده</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>⚡</span> راهنمای نصب
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#quickstart" class="sidebar-link"><span class="icon">📦</span> نصب از سورس (Dev Mode)</a></li>
+          <li><a href="#browser-support" class="sidebar-link"><span class="icon">🌐</span> مرورگرهای پشتیبانی‌شده</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>🎮</span> نحوه استفاده و میانبرها
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#shortcuts" class="sidebar-link"><span class="icon">⌨️</span> کلیدهای میانبر پیش‌فرض</a></li>
+          <li><a href="#zoom-modes" class="sidebar-link"><span class="icon">🔎</span> مقایسه ۲ حالت بزرگ‌نمایی</a></li>
+          <li><a href="#mouse-scroll-nav" class="sidebar-link"><span class="icon">🖱️</span> اسکرول ماوس و جهت‌نماها</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>⚙️</span> تنظیمات و گزینه‌ها
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#general-settings" class="sidebar-link"><span class="icon">🛠️</span> تب عمومی (General)</a></li>
+          <li><a href="#lens-settings" class="sidebar-link"><span class="icon">🔍</span> تب ذره‌بین (Lens)</a></li>
+          <li><a href="#advanced-settings" class="sidebar-link"><span class="icon">🚀</span> تب پیشرفته (Advanced)</a></li>
+          <li><a href="#blacklist" class="sidebar-link"><span class="icon">🚫</span> مدیریت لیست سیاه</a></li>
+          <li><a href="#i18n" class="sidebar-link"><span class="icon">🌍</span> سیستم دو زبانه (i18n)</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>💻</span> معماری فنی و کدها
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#architecture" class="sidebar-link"><span class="icon">🏗️</span> معماری Manifest V3</a></li>
+          <li><a href="#file-structure" class="sidebar-link"><span class="icon">📁</span> ساختار فایل‌ها</a></li>
+          <li><a href="#storage-events" class="sidebar-link"><span class="icon">🔄</span> هماهنگی استوریج و رویدادها</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>🧩</span> ادغام در سایت شما
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#embed-guide" class="sidebar-link"><span class="icon">📋</span> کد آی‌فریم و جایگذاری</a></li>
+          <li><a href="#faq" class="sidebar-link"><span class="icon">❓</span> پرسش‌های متداول</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ناحیه اصلی متن مستندات -->
+    <main class="main-content">
+
+      <!-- بخش بنر هیرو -->
+      <section class="hero-banner" id="overview">
+        <div class="hero-tag">🌟 افزونه متن‌باز مرورگر | نسخه ۲.۱.۰</div>
+        <h1 class="hero-title">
+          مستندات رسمی افزونه <span>بیل بیلک (BilBilak)</span><br>
+          ذره‌بین هوشمند ماوس برای وبگردی دقیق‌تر
+        </h1>
+        <p class="hero-desc">
+          بیل بیلک یک افزونه سبک، مدرن، بدون ردگیری و کاملاً محلی (Local-first) برای مرورگرهای مبتنی بر کرومیوم است که به شما امکان می‌دهد با فشردن ساده کلید میانبر، هر گوشه‌ای از صفحات وب را با کیفیت بالا ذره‌بین‌گذاری و بزرگ‌نمایی کنید.
+        </p>
+
+        <div class="hero-actions">
+          <a href="https://github.com/FarahaDO/Bill-Bilak" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span>دریافت کد سورس در GitHub</span> ↗
+          </a>
+          <a href="#quickstart" class="btn btn-ghost">
+            <span>راهنمای گام‌به‌گام نصب</span> ↓
+          </a>
+          <a href="#interactive-demo" class="btn btn-ghost">
+            <span>تست شبیه‌ساز آنلاین</span> 🔍
+          </a>
+        </div>
+
+        <div class="hero-badge-group">
+          <span class="badge-pill">🔒 حریم خصوصی ۱۰۰٪ امن (بدون ارسال داده)</span>
+          <span class="badge-pill">⚡ مانیفست نسخه ۳ (Chrome Manifest V3)</span>
+          <span class="badge-pill">🇮🇷 / 🇬🇧 پشتیبانی کامل فارسی و انگلیسی</span>
+          <span class="badge-pill">☁️ همگام‌سازی ابری با chrome.storage.sync</span>
+        </div>
+      </section>
+
+      <!-- بخش شبیه‌ساز تعاملی -->
+      <section class="doc-section" id="interactive-demo">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> شبیه‌ساز زنده بیل بیلک در همین صفحه</h2>
+        </div>
+        <p>
+          نشانگر ماوس خود را وارد کادر زیر کنید تا نحوه عملکرد دو حالت <strong>زوم کل صفحه</strong> و <strong>ذره‌بین شناور (Lens Mode)</strong> را بدون نیاز به نصب مشاهده کنید:
+        </p>
+
+        <div class="playground-box">
+          <div class="playground-header">
+            <div class="playground-title">
+              <span>🎮 محیط تست زنده (Playground)</span>
+            </div>
+            <div class="playground-controls">
+              <button class="btn btn-ghost" id="playModePage" style="font-size: 12px; padding: 4px 10px;">🔎 زوم صفحه</button>
+              <button class="btn btn-primary" id="playModeLens" style="font-size: 12px; padding: 4px 10px;">🔍 حالت ذره‌بین شناور</button>
+              <button class="btn btn-ghost" id="playToggleRing" style="font-size: 12px; padding: 4px 10px;">حلقه ماوس: روشن</button>
+            </div>
+          </div>
+
+          <div class="interactive-canvas-area" id="interactiveCanvas">
+            <div class="playground-sample-text" id="sampleText">
+              <h3 style="color: var(--primary); margin-bottom: 8px;">🦦 ماوس را اینجا حرکت دهید!</h3>
+              <p style="font-size: 13px; line-height: 1.7;">
+                این متن نمونه با فونت ظریف و جزئیات دقیق نوشته شده است. در افزونه واقعی بیل بیلک، با نگه‌داشتن میانبر کیبورد، بدون از دست رفتن وضوح تصویر روی هر المان متن، تصویر، نمودار یا نقشه فوکوس می‌کنید.
+              </p>
+              <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: center;">
+                <span class="badge-pill" style="font-size: 11px;">متن ریز ۱</span>
+                <span class="badge-pill" style="font-size: 11px;">کد پنهان: 4892-BB</span>
+                <span class="badge-pill" style="font-size: 11px;">جزئیات گرافیکی</span>
+              </div>
+            </div>
+
+            <!-- المان‌های مجازی شبیه‌ساز -->
+            <div class="playground-lens" id="mockLens"></div>
+            <div class="playground-ring" id="mockRing"></div>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-subtle); margin-top: 8px; text-align: center;">
+            💡 در این شبیه‌ساز، حالت انتخاب‌شده با حرکت ماوس روی کادر فعال می‌شود.
+          </div>
+        </div>
+      </section>
+
+      <!-- چرا بیل بیلک؟ -->
+      <section class="doc-section" id="why-bilbilak">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> ویژگی‌های کلیدی و کاربردها</h2>
+        </div>
+        <p>
+          افزونه‌های زوم معمول معمولاً تمام صفحه را به هم می‌ریزند یا برای بازگشت به حالت عادی نیاز به کلیک‌های متعدد دارند. بیل بیلک با رویکرد <strong>زوم در لحظه (Instant On-Demand Zoom)</strong> طراحی شده است:
+        </p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3 class="card-title">۲ حالت زوم کاربردی</h3>
+            <p class="card-text">
+              امکان انتخاب بین <strong>زوم صفحه</strong> (بزرگ‌نمایی نرم کل محتوای صفحه پیرامون کرسر) یا <strong>ذره‌بین شناور</strong> (عدسی دایره‌ای با سایه و انعکاس نور شبیه ذره‌بین واقعی).
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🖱️</div>
+            <h3 class="card-title">تنظیم داینامیک با اسکرول</h3>
+            <p class="card-text">
+              در حالتی که کلید میانبر را فشرده‌اید، چرخ ماوس (اسکرول) را بچرخانید تا میزان بزرگ‌نمایی از ۱.۱ برابر تا ۸ برابر در لحظه تنظیم شود.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🎮</div>
+            <h3 class="card-title">پیمایش با کلیدهای کیبورد</h3>
+            <p class="card-text">
+              نیاز به جابه‌جایی ظریف دارید؟ هنگام زوم بودن، با کلیدهای جهت‌نما (<kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> <kbd>←</kbd>) مرکز تمرکز بزرگ‌نمایی را پیکسل‌به‌پیکسل حرکت دهید.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🌫️</div>
+            <h3 class="card-title">حالت تمرکز (Focus Mode)</h3>
+            <p class="card-text">
+              با فعال کردن حالت تمرکز، محیط اطراف ذره‌بین به صورت اتوماتیک تار (Blur) می‌شود تا چشم شما فقط بر روی محتوای مورد نظر تمرکز کند.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🗺️</div>
+            <h3 class="card-title">مینی‌مپ موقعیت‌یاب (Mini-map)</h3>
+            <p class="card-text">
+              یک رادار تصویری کوچک و هوشمند مبتنی بر HTML5 Canvas در گوشه صفحه که نقشه کلی المان‌های صفحه و موقعیت دید فعلی شما را نشان می‌دهد.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🚫</div>
+            <h3 class="card-title">لیست سیاه سایت‌ها (Blacklist)</h3>
+            <p class="card-text">
+              سایت‌هایی مانند یوتیوب، ابزارهای طراحی آنلاین یا بازی‌های وب را به راحتی در لیست استثنا قرار دهید تا افزونه در آن‌ها فعال نشود.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- راهنمای نصب سریع -->
+      <section class="doc-section" id="quickstart">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> راهنمای نصب سریع (Developer Mode)</h2>
+        </div>
+        <p>
+          افزونه بیل بیلک از ساختار مدرن Manifest V3 بهره می‌برد و بدون هیچ وابستگی یا کامپایلری مستقیماً در چند ثانیه روی تمامی مرورگرهای کرومیوم نصب می‌شود:
+        </p>
+
+        <div class="tabs-container">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-install-git">روش ۱: از طریق Git</button>
+            <button class="tab-btn" data-tab="tab-install-zip">روش ۲: دانلود فایل ZIP</button>
+          </div>
+
+          <div class="tab-pane active" id="tab-install-git">
+            <p>ترمینال یا CMD را باز کرده و مخزن را کلون کنید:</p>
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="code-lang-tag">BASH</span>
+                <button class="copy-btn" data-copy="git clone https://github.com/FarahaDO/Bill-Bilak.git">کپی دستور</button>
+              </div>
+              <pre><code># کلون کردن پروژه
+git clone https://github.com/FarahaDO/Bill-Bilak.git
+
+# ورود به پوشه پروژه
+cd Bill-Bilak</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-install-zip">
+            <ol style="margin-right: 20px; line-height: 2;">
+              <li>به صفحه گیت‌هاب پروژه مراجعه کنید: <a href="https://github.com/FarahaDO/Bill-Bilak" target="_blank" style="color: var(--primary);">FarahaDO/Bill-Bilak</a></li>
+              <li>روی دکمه سبز رنگ <strong>Code</strong> کلیک کنید و گزینه <strong>Download ZIP</strong> را بزنید.</li>
+              <li>فایل زیپ دانلود شده را از حالت فشرده (Extract) خارج کنید.</li>
+            </ol>
+          </div>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem; font-size: 18px;">مراحل فعال‌سازی در مرورگر (Google Chrome / Brave / Edge):</h3>
+
+        <ul class="steps-list">
+          <li class="step-item">
+            <div class="step-title">باز کردن صفحه مدیریت افزونه‌ها</div>
+            <div class="step-content">
+              در نوار آدرس مرورگر خود آدرس مقابل را تایپ کرده و Enter بزنید: <code>chrome://extensions</code> (در مرورگر اج: <code>edge://extensions</code>).
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-title">روشن کردن حالت توسعه‌دهنده (Developer mode)</div>
+            <div class="step-content">
+              در گوشه بالا سمت راست (یا بالا سمت چپ در مرورگرهای انگلیسی)، سوئیچ گزینه <strong>Developer mode</strong> را فعال کنید.
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-title">بارگذاری پوشه افزونه (Load unpacked)</div>
+            <div class="step-content">
+              روی دکمه <strong>Load unpacked</strong> (بارگذاری افزونه باز شده) کلیک کرده و پوشه سورس کد بیل بیلک را انتخاب کنید.
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-title">پین کردن و شروع استفاده!</div>
+            <div class="step-content">
+              آیکون سمور بامزه 🦦 در نوار ابزار مرورگر شما ظاهر می‌شود. آن را پین (Pin) کنید تا همیشه دم دست باشد.
+            </div>
+          </li>
+        </ul>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 نکته امنیتی مرورگرها</div>
+          افزونه‌های مرورگر به دلایل امنیتی در صفحات داخلی مرورگر مانند <code>chrome://</code> یا فروشگاه افزونه‌ها اجرا نمی‌شوند. برای تست، هر سایت اینترنتی دلخواه (مثل گوگل، ویکی‌پدیا یا گیت‌هاب) را باز کنید.
+        </div>
+      </section>
+
+      <!-- جدول مرورگرها -->
+      <section class="doc-section" id="browser-support">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> سازگاری با مرورگرها</h2>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>مرورگر</th>
+                <th>حداقل نسخه پیشنهادی</th>
+                <th>پشتیبانی Manifest V3</th>
+                <th>وضعیت تست</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Google Chrome</strong></td>
+                <td>Chrome 88+</td>
+                <td><span style="color: var(--success); font-weight: 700;">✓ کامل</span></td>
+                <td>تایید شده (کاملاً پایدار)</td>
+              </tr>
+              <tr>
+                <td><strong>Microsoft Edge</strong></td>
+                <td>Edge 88+</td>
+                <td><span style="color: var(--success); font-weight: 700;">✓ کامل</span></td>
+                <td>تایید شده (پایدار)</td>
+              </tr>
+              <tr>
+                <td><strong>Brave Browser</strong></td>
+                <td>نسخه ۱.۲۰ به بالا</td>
+                <td><span style="color: var(--success); font-weight: 700;">✓ کامل</span></td>
+                <td>تایید شده (بدون اختلال با سپر امنیتی Brave Shields)</td>
+              </tr>
+              <tr>
+                <td><strong>Opera & Opera GX</strong></td>
+                <td>Opera 74+</td>
+                <td><span style="color: var(--success); font-weight: 700;">✓ کامل</span></td>
+                <td>تایید شده</td>
+              </tr>
+              <tr>
+                <td><strong>Vivaldi / Arc</strong></td>
+                <td>مبتنی بر کرومیوم مدرن</td>
+                <td><span style="color: var(--success); font-weight: 700;">✓ کامل</span></td>
+                <td>تایید شده</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- میانبرها و نحوه استفاده -->
+      <section class="doc-section" id="shortcuts">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> راهنمای میانبرها و نحوه کنترل</h2>
+        </div>
+        <p>
+          بیل بیلک دو الگوی کاربری ارائه می‌دهد: <strong>حالت نگه‌داشتن موقت (Hold)</strong> برای کارهای سرعتی و <strong>حالت قفل سوییچی (Toggle)</strong> برای مطالعه مداوم.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>عملکرد</th>
+                <th>کلید میانبر پیش‌فرض</th>
+                <th>توضیحات و رفتار</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>زوم موقت (Hold Zoom)</strong></td>
+                <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> (نگه‌داشتن)</td>
+                <td>تا زمانی که کلیدها را نگه دارید، زوم فعال است و با رها کردن کلیدها به حالت عادی برمی‌گردد.</td>
+              </tr>
+              <tr>
+                <td><strong>سوییچ دائمی زوم (Toggle Zoom)</strong></td>
+                <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd></td>
+                <td>فرمان مرورگر (Browser Command) برای روشن/خاموش ماندن مداوم زوم بدون نیاز به نگه‌داشتن کلیدها.</td>
+              </tr>
+              <tr>
+                <td><strong>تغییر میزان زوم آنی</strong></td>
+                <td><kbd>اسکرول ماوس</kbd> (در زمان زوم)</td>
+                <td>چرخاندن غلتک ماوس به بالا بزرگ‌نمایی را بیشتر و به پایین کمتر می‌کند (با گام قابل تنظیم مثلاً 0.2x).</td>
+              </tr>
+              <tr>
+                <td><strong>پیمایش زاویه دید</strong></td>
+                <td><kbd>→</kbd> <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd></td>
+                <td>حرکت دادن کادر زوم با گام ۵۰ پیکسلی بدون نیاز به حرکت دادن دست روی ماوس.</td>
+              </tr>
+              <tr>
+                <td><strong>خروج فوری از زوم</strong></td>
+                <td><kbd>Escape</kbd> یا رها کردن میانبر</td>
+                <td>صفحه فوراً به اندازه و پوزیشن اصلی بازمی‌گردد.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-success">
+          <div class="callout-title">🎙️ امکان ثبت کلیدهای دلخواه (Interactive Key Recorder)</div>
+          دوست دارید از کلید دیگری مثل <kbd>Alt</kbd> یا <kbd>Space</kbd> استفاده کنید؟ کافیست پنجره پاپ‌آپ افزونه را باز کنید، روی کادر کلید میانبر کلیک کرده و کلیدهای مورد علاقه خود را روی کیبورد فشار دهید تا فوراً ثبت شود!
+        </div>
+      </section>
+
+      <!-- مقایسه ۲ حالت زوم -->
+      <section class="doc-section" id="zoom-modes">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> مقایسه ۲ حالت زوم (Page Zoom vs Lens Mode)</h2>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3 class="card-title" style="color: var(--primary);">🔎 ۱. زوم صفحه (Page Zoom)</h3>
+            <p class="card-text">
+              در این حالت، با استفاده از خاصیت مدرن <code>transform: scale(...)</code> و محاسبه مرکز تبدیل براساس مختصات ماوس:
+            </p>
+            <ul style="margin: 12px 20px; font-size: 13.5px; line-height: 1.8; color: var(--text-muted);">
+              <li>کل صفحه وب اطراف نشانگر ماوس کشیده و بزرگ می‌شود.</li>
+              <li>انیمیشن روان (CSS Transition) با مدت زمان پیش‌فرض ۱۵۰ میلی‌ثانیه.</li>
+              <li>مناسب برای مطالعه صفحات متنی، خواندن مقالات با فونت کوچک و کدها.</li>
+              <li>همراه با حلقه دور نشانگر ماوس (Cursor Ring) برای گم نکردن هدف.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title" style="color: var(--accent);">🔍 ۲. حالت ذره‌بین شناور (Lens Mode)</h3>
+            <p class="card-text">
+              یک عدسی دایره‌ای واقعی که به نشانگر ماوس شما می‌چسبد:
+            </p>
+            <ul style="margin: 12px 20px; font-size: 13.5px; line-height: 1.8; color: var(--text-muted);">
+              <li>فقط ناحیه درون دایره ذره‌بین بزرگ می‌شود و بقیه صفحه ثابت می‌ماند.</li>
+              <li>دارای سایه ۳ بعدی (Box Shadow) و هاله بازتاب نور برای شبیه‌سازی شیشه طبیعی.</li>
+              <li>شعاع قابل تنظیم از ۸۰ تا ۳۰۰ پیکسل.</li>
+              <li>امکان تغییر ضخامت و رنگ حاشیه (Border Color) متناسب با سلیقه شما.</li>
+              <li>مناسب برای طراحان رابط کاربری، بازرسی تصاویر، جدول‌های فشرده و چک کردن پیکسل‌ها.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- تنظیمات پاپ‌آپ -->
+      <section class="doc-section" id="general-settings">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> کالبدشکافی تنظیمات پاپ‌آپ (Popup UI)</h2>
+        </div>
+        <p>
+          با کلیک روی آیکون افزونه در تولبار، یک پنل اختصاصی شکیل با ۳ زبانه باز می‌شود:
+        </p>
+
+        <!-- تب عمومی -->
+        <h3 style="margin: 1.5rem 0 0.75rem; color: var(--text-main);">⚙️ زبانه عمومی (General Tab)</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>گزینه تنظیمات</th>
+                <th>مقدار پیش‌فرض</th>
+                <th>توضیح عملکرد</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>فعال‌سازی افزونه (Enable)</strong></td>
+                <td><code>true</code> (روشن)</td>
+                <td>سوئیچ اصلی برای غیرفعال کردن موقت تمام قابلیت‌های بیل بیلک بدون نیاز به خاموش کردن در مرورگر.</td>
+              </tr>
+              <tr>
+                <td><strong>حالت زوم (Zoom Mode)</strong></td>
+                <td><code>page</code> (زوم صفحه)</td>
+                <td>انتخاب بین زوم سراسری صفحه یا ذره‌بین متحرک شناور.</td>
+              </tr>
+              <tr>
+                <td><strong>میزان بزرگ‌نمایی (Zoom Level)</strong></td>
+                <td><code>2.0x</code> (از 1.1x تا 8.0x)</td>
+                <td>اسلایدر تعیین ضریب پیش‌فرض بزرگ‌نمایی المان‌ها.</td>
+              </tr>
+              <tr>
+                <td><strong>کلیدهای میانبر (Shortcut)</strong></td>
+                <td><code>Control + Shift</code></td>
+                <td>کادر هوشمند ضبط کلیدها؛ کلیک کنید، دکمه‌های دلخواه را بزنید و Enter را فشار دهید.</td>
+              </tr>
+              <tr>
+                <td><strong>انیمیشن نرم (Smooth Transition)</strong></td>
+                <td><code>true</code> (روشن)</td>
+                <td>اعمال افکت ترنزیشن نرم ۱۵۰ میلی‌ثانیه‌ای در هنگام ورود و خروج به زوم.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- تب ذره‌بین -->
+        <h3 style="margin: 2rem 0 0.75rem; color: var(--text-main);" id="lens-settings">🔍 زبانه ذره‌بین (Lens Tab)</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>گزینه تنظیمات</th>
+                <th>مقدار پیش‌فرض</th>
+                <th>توضیح عملکرد</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>شعاع ذره‌بین (Lens Radius)</strong></td>
+                <td><code>150px</code> (از 80px تا 300px)</td>
+                <td>قطر کلی دایره ذره‌بین را از ۱۶۰ پیکسل تا ۶۰۰ پیکسل تغییر می‌دهد.</td>
+              </tr>
+              <tr>
+                <td><strong>ضخامت حاشیه (Border Thickness)</strong></td>
+                <td><code>3px</code> (از 0 تا 10px)</td>
+                <td>ضخامت خط دور عدسی ذره‌بین.</td>
+              </tr>
+              <tr>
+                <td><strong>رنگ حاشیه (Border Color)</strong></td>
+                <td><code>#ff6b35</code> (نارنجی اختصاصی)</td>
+                <td>انتخاب رنگ دلخواه کادر ذره‌بین از پالت رنگی یا کد هگز.</td>
+              </tr>
+              <tr>
+                <td><strong>سایه ذره‌بین (Lens Shadow)</strong></td>
+                <td><code>true</code> (فعال)</td>
+                <td>سایه ملایم برای بعد بخشیدن به ذره‌بین روی المان‌های زمینه.</td>
+              </tr>
+              <tr>
+                <td><strong>حلقه نشانگر ماوس (Cursor Ring)</strong></td>
+                <td><code>true</code> (فعال)</td>
+                <td>نمایش یک رینگ دایره‌ای دور نقطه برخورد ماوس برای دید بهتر.</td>
+              </tr>
+              <tr>
+                <td><strong>حالت تمرکز (Focus Mode)</strong></td>
+                <td><code>false</code> (خاموش)</td>
+                <td>تار کردن (Blur) کل زمینه صفحه به جز محدوده زوم شده.</td>
+              </tr>
+              <tr>
+                <td><strong>شدت تاری (Blur Amount)</strong></td>
+                <td><code>5px</code> (از 0 تا 20px)</td>
+                <td>تعیین شدت افکت مات‌کننده زمینه در حالت تمرکز.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- تب پیشرفته -->
+        <h3 style="margin: 2rem 0 0.75rem; color: var(--text-main);" id="advanced-settings">🚀 زبانه پیشرفته (Advanced Tab)</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>گزینه تنظیمات</th>
+                <th>مقدار پیش‌فرض</th>
+                <th>توضیح عملکرد</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>زوم با اسکرول ماوس (Scroll Zoom)</strong></td>
+                <td><code>true</code> (روشن)</td>
+                <td>امکان کم و زیاد کردن آنی ضریب بزرگ‌نمایی در زمان فعال بودن زوم.</td>
+              </tr>
+              <tr>
+                <td><strong>گام زوم اسکرول (Zoom Step)</strong></td>
+                <td><code>0.2</code> (از 0.1 تا 1.0)</td>
+                <td>میزان افزایشی/کاهشی زوم به ازای هر تیک اسکرول ماوس.</td>
+              </tr>
+              <tr>
+                <td><strong>ناوبری کیبورد (Keyboard Navigation)</strong></td>
+                <td><code>true</code> (روشن)</td>
+                <td>جابه‌جایی کادر با کلیدهای جهت‌نما با گام ۵۰ پیکسلی.</td>
+              </tr>
+              <tr>
+                <td><strong>نمایش مینی‌مپ (Show Mini-map)</strong></td>
+                <td><code>false</code> (خاموش)</td>
+                <td>فعال‌سازی نقشه شناور صفحه در گوشه پنجره.</td>
+              </tr>
+              <tr>
+                <td><strong>موقعیت مینی‌مپ (Position)</strong></td>
+                <td><code>bottom-right</code> (پایین-راست)</td>
+                <td>انتخاب بین ۴ گوشه صفحه: بالا-چپ، بالا-راست، پایین-چپ، پایین-راست.</td>
+              </tr>
+              <tr>
+                <td><strong>ابعاد مینی‌مپ (Minimap Size)</strong></td>
+                <td><code>180px</code> (از 100px تا 300px)</td>
+                <td>عرض و ارتفاع نقشه کوچک صفحه.</td>
+              </tr>
+              <tr>
+                <td><strong>بازنشانی به پیش‌فرض (Reset Defaults)</strong></td>
+                <td>دکمه اقدام</td>
+                <td>بازگرداندن تمام مقادیر ذخیره شده در حافظه به حالت اولیه کارخانه.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- مدیریت لیست سیاه -->
+      <section class="doc-section" id="blacklist">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> مدیریت لیست سیاه سایت‌ها (Site Blacklist)</h2>
+        </div>
+        <p>
+          صفحه تنظیمات اختصاصی (Options Page) به شما امکان می‌دهد دامنه‌های خاص را مسدود کنید.
+        </p>
+
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <h3 class="card-title">نحوه کارکرد لیست سیاه:</h3>
+          <p class="card-text">
+            وقتی دامنه‌ای مثل <code>youtube.com</code> را ثبت می‌کنید، اسکریپت بیل بیلک قبل از اجرا، آدرس <code>window.location.hostname</code> را با لیست سیاه مطابقت می‌دهد. در صورت وجود تطابق، افزونه به طور خودکار به حالت غیرفعال درمی‌آید و هیچ اختلالی در عملکرد ویدئوها یا بازی‌های وب ایجاد نمی‌کند.
+          </p>
+          <div style="margin-top: 12px;">
+            <span class="badge-pill">✅ پشتیبانی خودکار از تمام ساب‌دامنه‌ها (مثلاً en.wikipedia.org با درج wikipedia.org)</span>
+            <span class="badge-pill">💾 ذخیره‌سازی ابری و بدون اتلاف رم</span>
+          </div>
+        </div>
+
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-lang-tag">JAVASCRIPT (کد بررسی لیست سیاه در content.js)</span>
+          </div>
+          <pre><code>function isBlacklisted() {
+  const hostname = window.location.hostname;
+  return settings.blacklist.some(domain => hostname.includes(domain));
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- سیستم دوزبانه -->
+      <section class="doc-section" id="i18n">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> سیستم چندزبانه بومی (i18n System)</h2>
+        </div>
+        <p>
+          افزونه بیل بیلک دارای یک موتور ترجمه سبک و اختصاصی در فایل <code>i18n.js</code> است که مزایای زیر را فراهم می‌کند:
+        </p>
+        <ul style="margin: 12px 20px; font-size: 14px; line-height: 1.9; color: var(--text-muted);">
+          <li><strong>تغییر در لحظه بدون نیاز به ریستارت:</strong> کاربر از منوی بالای پاپ‌آپ بین 🇬🇧 English و 🇮🇷 فارسی جابه‌جا می‌شود.</li>
+          <li><strong>شناسایی خودکار زبان سیستم (Auto Detect):</strong> افزونه به طور خودکار زبان مرورگر کاربر را شناسایی کرده و رابط کاربری را تنظیم می‌کند.</li>
+          <li><strong>مدیریت خودکار جهت صفحه (RTL / LTR):</strong> ویژگی <code>dir="rtl"</code> یا <code>dir="ltr"</code> و فونت‌های مناسب بلافاصله روی المان <code>&lt;body&gt;</code> اعمال می‌شوند.</li>
+        </ul>
+
+        <h4 style="margin: 1.5rem 0 0.5rem; font-size: 15px;">چگونه یک زبان جدید اضافه کنیم؟</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">
+          کافیست فایل <code>i18n.js</code> را باز کرده و یک کلید جدید (مثلاً <code>fr</code> برای فرانسوی یا <code>ar</code> برای عربی) به آبجکت <code>translations</code> اضافه کنید:
+        </p>
+
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-lang-tag">JAVASCRIPT (افزودن زبان در i18n.js)</span>
+          </div>
+          <pre><code>translations['fr'] = {
+  extensionName: "BilBilak - Zoom Intelligent",
+  extensionDescription: "Regardez les détails plus profondément avec BilBilak!",
+  tabGeneral: "⚙️ Général",
+  tabLens: "🔍 Loupe",
+  // ... سایر کلیدها
+};</code></pre>
+        </div>
+      </section>
+
+      <!-- معماری فنی -->
+      <section class="doc-section" id="architecture">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> معماری فنی و جریان داده‌ها (Manifest V3)</h2>
+        </div>
+        <p>
+          بیل بیلک با رعایت استانداردهای سخت‌گیرانه گوگل کروم برای Manifest V3 و رویکرد کامپوننت‌محور پیاده‌سازی شده است:
+        </p>
+
+        <div class="architecture-diagram">
+          <div class="diagram-flow">
+            <!-- ردیف ۱: کاربر و ورودی‌ها -->
+            <div class="diagram-row">
+              <div class="diagram-node">
+                <div class="diagram-node-title">⌨️ / 🖱️ ورودی کاربر</div>
+                <div class="diagram-node-desc">KeyDown، MouseMove، Wheel</div>
+              </div>
+              <div class="diagram-node">
+                <div class="diagram-node-title">🎛️ پنجره پاپ‌آپ (popup.html)</div>
+                <div class="diagram-node-desc">تنظیمات کاربر و ضبط کلیدها</div>
+              </div>
+            </div>
+
+            <div class="diagram-arrow">↓</div>
+
+            <!-- ردیف ۲: استوریج و ورکر -->
+            <div class="diagram-row">
+              <div class="diagram-node highlight">
+                <div class="diagram-node-title">☁️ chrome.storage.sync</div>
+                <div class="diagram-node-desc">منبع حقیقت تنظیمات (Single Source of Truth)</div>
+              </div>
+              <div class="diagram-node">
+                <div class="diagram-node-title">⚡ background.js (Service Worker)</div>
+                <div class="diagram-node-desc">شنود فرمان‌های سراسری chrome.commands</div>
+              </div>
+            </div>
+
+            <div class="diagram-arrow">↓</div>
+
+            <!-- ردیف ۳: اسکریپت‌های صفحه -->
+            <div class="diagram-row">
+              <div class="diagram-node">
+                <div class="diagram-node-title">📄 content.js</div>
+                <div class="diagram-node-desc">مدیریت رویدادها و زوم کلی صفحه</div>
+              </div>
+              <div class="diagram-node">
+                <div class="diagram-node-title">🔍 magnifier.js</div>
+                <div class="diagram-node-desc">کلاس BilBilakMagnifier (رندر عدسی)</div>
+              </div>
+              <div class="diagram-node">
+                <div class="diagram-node-title">🗺️ minimap.js</div>
+                <div class="diagram-node-desc">کلاس BilBilakMinimap (رسم Canvas)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ساختار فایل‌های پروژه -->
+      <section class="doc-section" id="file-structure">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> ساختار فایل‌ها و وظیفه هر ماژول</h2>
+        </div>
+
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-lang-tag">TREE</span>
+          </div>
+          <pre><code>Bill-Bilak/
+├── manifest.json       # مانیفست افزونه (Manifest V3)، مجوزها و تعریف اسکریپت‌ها
+├── background.js       # سرویس ورکر پس‌زمینه، رویدادهای نصب و کلیدهای سراسری
+├── content.js          # اسکریپت تزریق شونده به صفحه، شنود رویدادها و اعمال زوم صفحه
+├── magnifier.js        # موتور ذره‌بین شناور و ایجاد المان‌های عدسی
+├── minimap.js          # ایجاد نقشه صفحه با استفاده از Canvas و اسکن ساختار DOM
+├── i18n.js             # موتور ترجمه و دیکشنری انگلیسی و فارسی
+├── styles.css          # استایل‌های عدسی، افکت تمرکز، حلقه ماوس و مینی‌مپ
+├── popup.html          # ساختار تب‌ها و کنترل‌های پاپ‌آپ
+├── popup.js            # لاجیک تعاملی پاپ‌آپ و ارتباط با chrome.storage
+├── options.html        # صفحه مستقل مدیریت لیست سیاه سایت‌ها
+├── options.js          # لاجیک افزودن و حذف دامنه‌های مسدود شده
+├── _locales/           # فایل‌های ترجمه مانیفست کروم (en, fa)
+└── icons/              # آیکون‌های افزونه در سایزهای 16, 48 و 128 پیکسل</code></pre>
+        </div>
+      </section>
+
+      <!-- همگام‌سازی استوریج -->
+      <section class="doc-section" id="storage-events">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> هماهنگی تنظیمات و سیستم رویدادها</h2>
+        </div>
+        <p>
+          تمام اجزای افزونه از رویداد <code>chrome.storage.onChanged</code> استفاده می‌کنند. به همین دلیل، هر تغییری که در پاپ‌آپ ایجاد شود بلافاصله و بدون نیاز به رفرش صفحه، در تمام تب‌های باز مرورگر منعکس خواهد شد:
+        </p>
+
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-lang-tag">JAVASCRIPT (شنود آنی تغییر تنظیمات در تب‌ها)</span>
+          </div>
+          <pre><code>chrome.storage.onChanged.addListener((changes) => {
+  for (const key in changes) {
+    settings[key] = changes[key].newValue;
+  }
+  if (isBlacklisted()) settings.enabled = false;
+  if (!settings.enabled && isZoomed) resetZoom();
+  updateVisuals();
+});</code></pre>
+        </div>
+      </section>
+
+      <!-- راهنمای جایگذاری در وبسایت شما -->
+      <section class="doc-section" id="embed-guide">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> راهنمای جایگذاری و Embed در سایت شما</h2>
+        </div>
+        <p>
+          شما می‌توانید این فایل مستندات را به چند روش در وبلاگ، پورتفولیو، مستندات نرم‌افزاری یا سایت شرکت خود جایگذاری کنید:
+        </p>
+
+        <div class="tabs-container">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-embed-iframe">روش ۱: از طریق IFrame</button>
+            <button class="tab-btn" data-tab="tab-embed-file">روش ۲: به عنوان صفحه مستقل HTML</button>
+            <button class="tab-btn" data-tab="tab-embed-wp">روش ۳: در وردپرس یا React</button>
+          </div>
+
+          <div class="tab-pane active" id="tab-embed-iframe">
+            <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 8px;">
+              اگر می‌خواهید این مستندات را درون یکی از صفحات موجود سایتتان نمایش دهید، از قطعه کد واکنش‌گرای زیر استفاده کنید:
+            </p>
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="code-lang-tag">HTML</span>
+                <button class="copy-btn" data-copy="&lt;iframe src=&quot;path/to/bill-bilak-docs.html&quot; style=&quot;width: 100%; height: 90vh; border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);&quot; title=&quot;مستندات بیل بیلک&quot;&gt;&lt;/iframe&gt;">کپی کد IFrame</button>
+              </div>
+              <pre><code>&lt;iframe 
+  src="bill-bilak-docs.html" 
+  style="width: 100%; height: 90vh; border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);" 
+  title="مستندات بیل بیلک"
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-embed-file">
+            <p style="font-size: 13.5px; color: var(--text-muted);">
+              کافیست فایل <code>bill-bilak-docs.html</code> را در پوشه پابلیک هاست یا ریپوزیتوری گیت‌هاب پیجز (GitHub Pages) آپلود کنید. به عنوان مثال در مسیر:
+            </p>
+            <div class="code-wrapper">
+              <div class="code-header"><span class="code-lang-tag">URL</span></div>
+              <pre><code>https://yoursite.com/docs/bilbilak.html</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-embed-wp">
+            <p style="font-size: 13.5px; color: var(--text-muted);">
+              در وردپرس، از بلوک <strong>HTML سفارشی (Custom HTML)</strong> استفاده کنید. در پروژه‌های React یا Next.js می‌توانید کدهای بدنه را به راحتی به کامپوننت JSX تبدیل کرده یا از طریق یک ساب‌روت ایستا به آن لینک دهید.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- پرسش‌های متداول -->
+      <section class="doc-section" id="faq">
+        <div class="section-header">
+          <h2 class="section-title"><span class="hash">#</span> پرسش‌های متداول (FAQ)</h2>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>آیا بیل بیلک اطلاعات شخصی یا سابقه مرور وب مرا ذخیره می‌کند؟</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <strong>خیر، به هیچ وجه!</strong> یکی از اصول اساسی بیل بیلک احترام به حریم خصوصی است. این افزونه به هیچ سرور خارجی وصل نمی‌شود، هیچ فایل آنالیتیکس یا تله‌متری ندارد و تمام پردازش‌ها ۱۰۰٪ به صورت آفلاین و لوکال درون مرورگر شما انجام می‌شود.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>چرا افزونه روی برخی از صفحات کار نمی‌کند؟</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            طبق قوانین امنیتی مرورگرهای مبتنی بر کرومیوم، هیچ افزونه‌ای اجازه تزریق اسکریپت (Content Script) در آدرس‌های سیستمی مانند <code>chrome://settings</code> یا صفحه Chrome Web Store را ندارد. همچنین بررسی کنید که دامنه صفحه در تب <em>مدیریت لیست سیاه</em> مسدود نشده باشد.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>آیا تنظیمات شخصی‌سازی من بین لپ‌تاپ و سیستم کاری همگام می‌شود؟</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            بله! بیل بیلک از API رسمی <code>chrome.storage.sync</code> استفاده می‌کند. اگر با اکانت گوگل خود در مرورگر لاگین کرده باشید، کلیدهای میانبر، رنگ و اندازه ذره‌بین شما روی همه کامپیوترها به صورت ابری همگام‌سازی می‌شود.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>چگونه می‌توانم در توسعه بیل بیلک مشارکت کنم یا باگی را گزارش دهم؟</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            مخزن این پروژه به صورت کاملاً متن‌باز (Open Source) تحت لایسنس MIT منتشر شده است. می‌توانید در صفحه <a href="https://github.com/FarahaDO/Bill-Bilak/issues" target="_blank" style="color: var(--primary);">گیت‌هاب پروژه</a> ایشو ثبت کنید یا Pull Request بفرستید.
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- فوتر -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#overview">نمای کلی</a>
+        <a href="#quickstart">راهنمای نصب</a>
+        <a href="#shortcuts">کلیدهای میانبر</a>
+        <a href="#general-settings">تنظیمات</a>
+        <a href="#architecture">معماری فنی</a>
+        <a href="https://github.com/FarahaDO/Bill-Bilak" target="_blank">مخزن گیت‌هاب</a>
+      </div>
+      <p class="footer-copy">
+        ساخته شده با ❤️ توسط <strong>فرهاد صلاحی (Farhad Salahi)</strong> | پروژه متن‌باز <strong>بیل بیلک (BilBilak)</strong>
+        <br>
+        مجوز تحت لایسنس MIT — کلیه حقوق محفوظ است.
+      </p>
+    </div>
+  </footer>
+
+  <!-- پیام کپی شدن کد -->
+  <div class="toast" id="copyToast">
+    <span>✓</span> متن مورد نظر با موفقیت کپی شد!
+  </div>
+
+  <!-- دکمه بازگشت به بالا -->
+  <button class="scroll-top-btn" id="scrollTopBtn" title="بازگشت به ابتدای صفحه">↑</button>
+
+  <!-- اسکریپت‌های تعاملی مستندات -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ۱. تغییر تم تاریک / روشن
+      const themeToggleBtn = document.getElementById('themeToggle');
+      const htmlEl = document.documentElement;
+
+      const savedTheme = localStorage.getItem('bilbilak_docs_theme') || 'dark';
+      htmlEl.setAttribute('data-theme', savedTheme);
+      themeToggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', newTheme);
+        localStorage.setItem('bilbilak_docs_theme', newTheme);
+        themeToggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      });
+
+      // ۲. منوی موبایل
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const sidebar = document.getElementById('sidebar');
+
+      mobileMenuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+        });
+      });
+
+      // ۳. کپی کردن کدها
+      const copyBtns = document.querySelectorAll('.copy-btn');
+      const toast = document.getElementById('copyToast');
+
+      copyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          let textToCopy = btn.getAttribute('data-copy');
+          if (!textToCopy) {
+            const pre = btn.closest('.code-wrapper').querySelector('pre');
+            if (pre) textToCopy = pre.innerText;
+          }
+
+          if (textToCopy) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              const originalText = btn.textContent;
+              btn.textContent = 'کپی شد! ✓';
+              toast.classList.add('show');
+              setTimeout(() => {
+                btn.textContent = originalText;
+                toast.classList.remove('show');
+              }, 2200);
+            });
+          }
+        });
+      });
+
+      // ۴. تب‌های تعاملی
+      const tabContainers = document.querySelectorAll('.tabs-container');
+      tabContainers.forEach(container => {
+        const navBtns = container.querySelectorAll('.tab-btn');
+        const panes = container.querySelectorAll('.tab-pane');
+
+        navBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-tab');
+            navBtns.forEach(b => b.classList.remove('active'));
+            panes.forEach(p => p.classList.remove('active'));
+
+            btn.classList.add('active');
+            const targetPane = container.querySelector('#' + targetId);
+            if (targetPane) targetPane.classList.add('active');
+          });
+        });
+      });
+
+      // ۵. سوالات متداول (FAQ Accordion)
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          faqItems.forEach(i => i.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+
+      // ۶. جستجو در سرفصل‌ها و محتوا
+      const searchInput = document.getElementById('docSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          const sections = document.querySelectorAll('.doc-section');
+          
+          sections.forEach(section => {
+            if (!query) {
+              section.style.display = 'block';
+              return;
+            }
+            const text = section.innerText.toLowerCase();
+            section.style.display = text.includes(query) ? 'block' : 'none';
+          });
+        });
+      }
+
+      // ۷. دکمه بازگشت به بالا و فعال‌سازی لینک‌های سایدبار هنگام اسکرول
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      const sections = document.querySelectorAll('.doc-section, .hero-banner');
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 120;
+          if (window.scrollY >= sectionTop) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
+
+        if (currentSectionId) {
+          sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentSectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ۸. لاجیک شبیه‌ساز زنده بیل بیلک (Interactive Playground)
+      const canvasArea = document.getElementById('interactiveCanvas');
+      const mockLens = document.getElementById('mockLens');
+      const mockRing = document.getElementById('mockRing');
+      const sampleText = document.getElementById('sampleText');
+      const playModePage = document.getElementById('playModePage');
+      const playModeLens = document.getElementById('playModeLens');
+      const playToggleRing = document.getElementById('playToggleRing');
+
+      let currentMode = 'lens'; // 'page' or 'lens'
+      let ringEnabled = true;
+
+      playModePage.addEventListener('click', () => {
+        currentMode = 'page';
+        playModePage.classList.remove('btn-ghost');
+        playModePage.classList.add('btn-primary');
+        playModeLens.classList.remove('btn-primary');
+        playModeLens.classList.add('btn-ghost');
+        mockLens.style.display = 'none';
+      });
+
+      playModeLens.addEventListener('click', () => {
+        currentMode = 'lens';
+        playModeLens.classList.remove('btn-ghost');
+        playModeLens.classList.add('btn-primary');
+        playModePage.classList.remove('btn-primary');
+        playModePage.classList.add('btn-ghost');
+        sampleText.style.transform = 'none';
+      });
+
+      playToggleRing.addEventListener('click', () => {
+        ringEnabled = !ringEnabled;
+        playToggleRing.textContent = 'حلقه ماوس: ' + (ringEnabled ? 'روشن' : 'خاموش');
+        if (!ringEnabled) mockRing.style.display = 'none';
+      });
+
+      canvasArea.addEventListener('mousemove', (e) => {
+        const rect = canvasArea.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        if (ringEnabled) {
+          mockRing.style.display = 'block';
+          mockRing.style.left = x + 'px';
+          mockRing.style.top = y + 'px';
+        }
+
+        if (currentMode === 'lens') {
+          mockLens.style.display = 'block';
+          mockLens.style.left = x + 'px';
+          mockLens.style.top = y + 'px';
+        } else if (currentMode === 'page') {
+          mockLens.style.display = 'none';
+          const originX = (x / rect.width) * 100;
+          const originY = (y / rect.height) * 100;
+          sampleText.style.transformOrigin = `${originX}% ${originY}%`;
+          sampleText.style.transform = 'scale(1.7)';
+        }
+      });
+
+      canvasArea.addEventListener('mouseleave', () => {
+        mockLens.style.display = 'none';
+        mockRing.style.display = 'none';
+        sampleText.style.transform = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
